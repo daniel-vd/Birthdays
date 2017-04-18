@@ -217,6 +217,7 @@ public class EditBirthdayActivity extends AppCompatActivity{
 
     public void saveEdit(View view) {
 
+
         if (bitmap != null) {
 
             saveToInternalStorage(bitmap);
