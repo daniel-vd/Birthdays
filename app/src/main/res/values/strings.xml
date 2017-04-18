@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Birthday Gift</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- activity_new_birthday -->
+    <string name="birthday_hint">Who\'s birthday?</string>
+    <string name="add_image">Add image</string>
+    <string name="birthday_date">Set date</string>
+
+</resources>

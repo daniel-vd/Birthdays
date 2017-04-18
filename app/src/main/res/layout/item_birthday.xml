@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+    >
+
+    <TextView
+        android:id="@+id/Id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="6dp"
+        android:padding="3dp"
+        android:visibility="gone"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="75dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:padding="5dp">
+
+            <ImageView
+                app:srcCompat="@color/cardview_light_background"
+                android:id="@+id/Image"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_weight="0"
+                android:transitionName="picture"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:maxLines="1"
+                android:textSize="20sp"
+                android:layout_weight="1"
+                android:text="Name"
+                android:layout_marginTop="7dp"/>
+
+            <TextView
+                android:text="date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/Date"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:text="Turns 5555"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/turnsText"
+                android:layout_marginTop="15dp"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:textColor="#4c4c4c"/>
+
+            <TextView
+                android:text="In 5555555 days"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tillText"
+                android:gravity="center"
+                android:layout_alignParentRight="false"
+                android:textColor="#4c4c4c"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
