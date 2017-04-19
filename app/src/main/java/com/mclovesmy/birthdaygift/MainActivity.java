@@ -120,11 +120,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (calendar.before(now)) {
            calendar.add(Calendar.DAY_OF_MONTH, 1);
 
-            manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                    86400000, pendingIntent);
+            manager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(),
+                    AlarmManager.INTERVAL_DAY, pendingIntent);
         } else {
-            manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                    86400000, pendingIntent);
+            manager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(),
+                    AlarmManager.INTERVAL_DAY, pendingIntent);
         }
     }
 
