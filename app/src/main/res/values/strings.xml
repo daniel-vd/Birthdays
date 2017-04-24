@@ -1,10 +1,17 @@
 <resources>
-    <string name="app_name">Birthday Gift</string>
+    <string name="app_name">Birthdays</string>
     <string name="action_settings">Settings</string>
+
+    <!-- General -->
+    <string name="save">Save</string>
 
     <!-- activity_new_birthday -->
     <string name="birthday_hint">Who\'s birthday?</string>
     <string name="add_image">Add image</string>
     <string name="birthday_date">Set date</string>
 
+    <!-- activity_new_gift -->
+    <string name="new_gift_intro">Here you can suggest a new gift to be added to the gifts database used by this app. No personal information will be send to our servers, only the word you add.</string>
+    <string name="new_gift_warning">Please make sure your gift is a valid english word and something that could be considered a gift!</string>
+    <string name="new_gift_hint">The gift you want to add</string>
 </resources>
