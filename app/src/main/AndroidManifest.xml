@@ -34,6 +34,8 @@
 
         <activity android:name=".EditBirthdayActivity"/>
 
+        <activity android:name=".helpActivities.NewGiftActivity" android:parentActivityName=".MainActivity" />
+
         <receiver android:name=".utils.AlarmReceiver" android:enabled="true">
         </receiver>
 
