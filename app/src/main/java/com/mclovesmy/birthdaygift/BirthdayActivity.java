@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
@@ -30,7 +31,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.adroitandroid.chipcloud.ChipCloud;
 import com.adroitandroid.chipcloud.ChipListener;
@@ -54,11 +54,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
 
@@ -74,6 +76,7 @@ public class BirthdayActivity extends AppCompatActivity{
     String[] gifts;
 
     Dialog dialog;
+
     int dialogVersion;
 
     String[] present_ideas;
@@ -93,6 +96,8 @@ public class BirthdayActivity extends AppCompatActivity{
     @Override
     protected void onResume() {
         super.onResume();
+
+        new getGiftList().execute("");
 
         requestQueue = Volley.newRequestQueue(this);
 
@@ -316,6 +321,37 @@ public class BirthdayActivity extends AppCompatActivity{
         }, 200);
     }
 
+    ArrayList<String> list;
+
+    private class getGiftList extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                Scanner s = new Scanner(new File(BirthdayActivity.this.getFilesDir() + "/gifts.txt"));
+                list = new ArrayList<String>();
+                while (s.hasNext()) {
+                    list.add(s.nextLine());
+                }
+                s.close();
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            return "";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+
+        }
+
+        @Override
+        protected void onPreExecute() {}
+
+        @Override
+        protected void onProgressUpdate(Void... values) {}
+    }
 
     public void addPresentIdea (final View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(BirthdayActivity.this);
@@ -337,7 +373,7 @@ public class BirthdayActivity extends AppCompatActivity{
 
         dialog.show();
 
-        ArrayAdapter adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,gifts);
+        ArrayAdapter adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, list);
 
         AutoCompleteTextView editText2 = (AutoCompleteTextView) dialog.findViewById(R.id.presentEditText);
 
@@ -372,7 +408,7 @@ public class BirthdayActivity extends AppCompatActivity{
 
         dialog.show();
 
-        ArrayAdapter adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,gifts);
+        ArrayAdapter adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, list);
 
         AutoCompleteTextView editText2 = (AutoCompleteTextView) dialog.findViewById(R.id.presentEditText);
 
@@ -504,12 +540,14 @@ public class BirthdayActivity extends AppCompatActivity{
 
     double random;
 
+    double random2;
+
     private void itemSuggestions() {
 
         // Create request queue
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        String[] product_feeds = {"https://organazer.com/app/birthdays/gifts/AliExpress-best-selling-1_8.php", "https://organazer.com/app/birthdays/gifts/Aliexpress-popular-feed-1.php"};
+        String[] product_feeds = {"http://danielvd.tk/projects/apps/birthdays/gift-feeds/AliExpress-best-selling-1_8.php", "http://danielvd.tk/projects/apps/birthdays/gift-feeds/Aliexpress-popular-feed-1.php"};
         //  Create json array request
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest((product_feeds[new Random().nextInt(product_feeds.length)]), new Response.Listener<JSONArray>() {
             public void onResponse(final JSONArray jsonArray) {
@@ -519,29 +557,28 @@ public class BirthdayActivity extends AppCompatActivity{
                     String gender = cursor.getString(cursor.getColumnIndex("gender")) + "";
 
                     int i = 0;
-                    Toast.makeText(BirthdayActivity.this, "HERE 0", Toast.LENGTH_SHORT).show();
                     for (i = r.nextInt(jsonArray.length() - 10); i < jsonArray.length(); i++) {
 
                         random = Math.random();
 
+                        random2 = Math.random();
+
                         jsonObject = jsonArray.getJSONObject(i);
 
-                        if (random < 0.3) {
-                            if (jsonObject.getJSONObject("categories").toString().contains("Consumer Electronics")) {
-                                break;
-                            } else {
-                                continue;
-                            }
+                        if (random < 0.4) {
+                            //if (random2 < 0.6) {
+                                if (jsonObject.getJSONObject("categories").toString().contains("Consumer Electronics")) {
+                                    break;
+                                }
+                            //}
                         } else {
                             if (gender.equals("Male")) {
                                 if (!jsonObject.getString("name").toLowerCase().contains(" men ") && !jsonObject.getString("name").toLowerCase().contains(" male ") && !jsonObject.getString("name").toLowerCase().contains(" mens ")) {
-                                    continue;
                                 } else {
                                     break;
                                 }
                             } else if (gender.equals("Female")) {
                                 if (!jsonObject.getString("name").toLowerCase().contains(" women ") && !jsonObject.getString("name").toLowerCase().contains(" female ")) {
-                                    continue;
                                 } else {
                                     break;
                                 }
