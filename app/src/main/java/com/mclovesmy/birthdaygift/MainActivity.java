@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
@@ -34,7 +35,9 @@ import com.facebook.rebound.SpringListener;
 import com.facebook.rebound.SpringSystem;
 import com.mclovesmy.birthdaygift.Databases.BirthdayDatabaseHelper;
 import com.mclovesmy.birthdaygift.Databases.DBManagerBirthdays;
+import com.mclovesmy.birthdaygift.helpActivities.NewGiftActivity;
 import com.mclovesmy.birthdaygift.utils.AlarmReceiver;
+import com.mclovesmy.birthdaygift.utils.CheckInternet;
 import com.mclovesmy.birthdaygift.utils.CircleTransform;
 import com.squareup.picasso.Picasso;
 
@@ -44,7 +47,14 @@ import org.joda.time.LocalDate;
 import org.joda.time.Years;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Scanner;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener, SpringListener {
@@ -75,6 +85,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         setAlarm();
+
+        new LongOperation().execute();
 
         //Initialize floating action button
         fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -120,13 +132,127 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (calendar.before(now)) {
            calendar.add(Calendar.DAY_OF_MONTH, 1);
 
-            manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                    86400000, pendingIntent);
+            manager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(),
+                    AlarmManager.INTERVAL_DAY, pendingIntent);
         } else {
-            manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                    86400000, pendingIntent);
+            manager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(),
+                    AlarmManager.INTERVAL_DAY, pendingIntent);
         }
     }
+
+    private class LongOperation extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            //The gift list file
+            File giftListFile = new File(MainActivity.this.getFilesDir(), "gifts.txt");
+
+            try {
+                if (!giftListFile.isFile()) {
+                    //Create the gift list file
+                    giftListFile.createNewFile();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (!new CheckInternet().CheckInternetConnection()) {
+                    return "";
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            //Get the contents of online gift list file.
+            //The url
+            URL url = null;
+            try {
+                url = new URL("http://danielvd.tk/projects/apps/birthdays/gift-list.txt");
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            Scanner s = null;
+            try {
+                if (url != null) {
+                    //Open the online file
+                    s = new Scanner(new InputStreamReader(url.openStream()));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            //Put file contents in arraylist 'list'
+            ArrayList<String> list = new ArrayList<String>();
+            if (s != null) {
+                while (s.hasNext()){
+                    list.add(s.nextLine());
+                }
+            }
+            if (s != null) {
+                s.close();
+            }
+
+            //Write online file to internal file
+            try {
+                //Writer
+                FileWriter writer = new FileWriter(giftListFile);
+
+                //Write every gift to file
+                for (int i = 0; i < list.size(); i++) {
+                    writer.append("\n").append(list.get(i));
+                }
+                //Close
+                writer.flush();
+                writer.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return "";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if (!result.equals("")) {
+                Toast.makeText(MainActivity.this, "" + result, Toast.LENGTH_SHORT).show();
+            }
+            // might want to change "executed" for the returned string passed
+            // into onPostExecute() but that is upto you
+        }
+
+        @Override
+        protected void onPreExecute() {}
+
+        @Override
+        protected void onProgressUpdate(Void... values) {}
+    }
+
+    /* Maybe for later use?
+    public void readFile (View v) throws Exception {
+        try {
+            FileInputStream inStream = new FileInputStream(String.valueOf(new File(this.getFilesDir() + "/gifts.txt")));
+            InputStreamReader inputStreamReader = new InputStreamReader(inStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+            StringBuilder finalString = new StringBuilder();
+            String oneLine;
+
+            while ((oneLine = bufferedReader.readLine()) != null) {
+                finalString.append(oneLine);
+            }
+
+            bufferedReader.close();
+            inStream.close();
+            inputStreamReader.close();
+
+            Toast.makeText(MainActivity.this, "" + finalString, Toast.LENGTH_SHORT).show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    } */
 
     public void onClick(View v) {
 
@@ -320,6 +446,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         if (id == R.id.remove_all) {
             dbManager.deleteAll();
+        }
+        if (id == R.id.new_gift) {
+            Intent intent = new Intent(getApplicationContext(), NewGiftActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
