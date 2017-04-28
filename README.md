@@ -18,4 +18,6 @@ If you want to work on a new feature that is not listed in the issues list, plea
 ## 1.3 Translating
 Translating will be coming soon.
 
+# License
+Birthdays is licensed under the GNU General Public License version 3.
 
