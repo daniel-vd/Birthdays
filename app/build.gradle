@@ -7,12 +7,26 @@ android {
         applicationId 'com.mclovesmy.birthdaygift'
         minSdkVersion 15
         targetSdkVersion 24
-        versionCode 4
-        versionName "0.2.1"
+        versionCode 5
+        versionName "0.3.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            it.buildConfigField 'String', 'FlurryKey', FlurryKey
+            it.buildConfigField 'String', 'GiftList', GiftList
+            it.buildConfigField 'String', 'Feed1', Feed1
+            it.buildConfigField 'String', 'Feed2', Feed2
+            it.buildConfigField 'String', 'NewGift', NewGift
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
         release {
+            it.buildConfigField 'String', 'FlurryKey', FlurryKey
+            it.buildConfigField 'String', 'GiftList', GiftList
+            it.buildConfigField 'String', 'Feed1', Feed1
+            it.buildConfigField 'String', 'Feed2', Feed2
+            it.buildConfigField 'String', 'NewGift', NewGift
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
