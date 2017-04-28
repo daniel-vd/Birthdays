@@ -12,7 +12,21 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            it.buildConfigField 'String', 'FlurryKey', FlurryKey
+            it.buildConfigField 'String', 'GiftList', GiftList
+            it.buildConfigField 'String', 'Feed1', Feed1
+            it.buildConfigField 'String', 'Feed2', Feed2
+            it.buildConfigField 'String', 'NewGift', NewGift
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
         release {
+            it.buildConfigField 'String', 'FlurryKey', FlurryKey
+            it.buildConfigField 'String', 'GiftList', GiftList
+            it.buildConfigField 'String', 'Feed1', Feed1
+            it.buildConfigField 'String', 'Feed2', Feed2
+            it.buildConfigField 'String', 'NewGift', NewGift
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

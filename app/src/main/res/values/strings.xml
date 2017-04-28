@@ -5,6 +5,10 @@
     <!-- General -->
     <string name="save">Save</string>
 
+    <!-- activity_birthday -->
+    <string name="gift_ideas">Gift ideas</string>
+    <string name="gifts_given">Gifts given</string>
+
     <!-- activity_new_birthday -->
     <string name="birthday_hint">Who\'s birthday?</string>
     <string name="add_image">Add image</string>
