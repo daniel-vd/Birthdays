@@ -447,7 +447,7 @@ public class BirthdayActivity extends AppCompatActivity{
                 dialog.dismiss();
                 onResume();
             } else {
-                editText.setError("Please fill in a present idea");
+                editText.setError("Please fill in a gift idea");
             }
         } else if (dialogVersion == 2) {
             int getNameIndex = cursor.getColumnIndex("presents_given");
@@ -472,7 +472,7 @@ public class BirthdayActivity extends AppCompatActivity{
                 dialog.dismiss();
                 onResume();
             } else {
-                editText.setError("Please fill in a given present");
+                editText.setError("Please fill in a given gift");
             }
         }
 

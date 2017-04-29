@@ -93,7 +93,7 @@ public class NewBirthdayActivity extends AppCompatActivity {
         this.setTitle("New birthday");
 
         int width = LayoutParams.WRAP_CONTENT;
-        int height = LayoutParams.WRAP_CONTENT;
+        int height = LayoutParams.MATCH_PARENT;
         this.getWindow().setLayout(width, height);
 
         //Calendar initialize
