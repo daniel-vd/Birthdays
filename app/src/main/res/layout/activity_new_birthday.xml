@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="50dp"
                     android:layout_marginRight="50dp"
-                    android:layout_marginTop="100dp"
+                    android:layout_marginTop="80dp"
                     android:onClick="setDate"
                     android:text="@string/birthday_date"/>
 
@@ -113,7 +113,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="50dp"
                     android:layout_marginRight="50dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="80dp"
                     android:onClick="addImage"
                     android:text="@string/add_image"/>
 

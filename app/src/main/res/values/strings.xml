@@ -15,16 +15,18 @@
     <string name="gifts_given">Gifts given</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
-    <string name="new_gift">New gift idea</string>
+    <string name="new_gift_idea">New gift idea</string>
+    <string name="new_given_gift">New given gift</string>
+    <string name="gift_idea_error">Please fill in a gift idea</string>
+    <string name="given_gift_error">Please fill in a given gift</string>
 
-    <!-- activity_birthday -->
-    <string name="gift_ideas">Gift ideas</string>
-    <string name="gifts_given">Gifts given</string>
 
     <!-- activity_new_birthday -->
     <string name="birthday_hint">Who\'s birthday?</string>
     <string name="add_image">Add image</string>
     <string name="birthday_date">Set date</string>
+    <string name="new_birthday">New birthday</string>
+    <string name="name_error">Please fill in a name</string>
 
     <!-- activity_new_gift -->
     <string name="new_gift_intro">Here you can suggest a new gift to be added to the gifts database used by this app. No personal information will be send to our servers, only the word you add.</string>

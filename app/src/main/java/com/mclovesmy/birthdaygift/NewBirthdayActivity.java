@@ -23,7 +23,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -75,6 +74,7 @@ public class NewBirthdayActivity extends AppCompatActivity {
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
+        //TODO some resources looked up twice
         setDate = (Button) findViewById(R.id.setDate);
         addImage = (Button) findViewById(R.id.addImageBirthday);
         imageView = (ImageView) findViewById(R.id.birthdayImageView);
@@ -90,10 +90,10 @@ public class NewBirthdayActivity extends AppCompatActivity {
         Button birthdayImagePicker = (Button) findViewById(R.id.addImageBirthday);
         birthdayImagePicker.setVisibility(View.GONE);
 
-        this.setTitle("New birthday");
+        this.setTitle(getText(R.string.new_birthday));
 
         int width = LayoutParams.WRAP_CONTENT;
-        int height = LayoutParams.MATCH_PARENT;
+        int height = LayoutParams.WRAP_CONTENT;
         this.getWindow().setLayout(width, height);
 
         //Calendar initialize
@@ -127,7 +127,7 @@ public class NewBirthdayActivity extends AppCompatActivity {
         if (next == 0) {
             //First choice = to datePicker
             if (editText1.getText().toString().trim().equals("")) {
-                editText1.setError("Please fill in a name");
+                editText1.setError(getText(R.string.name_error));
                 return;
             }
 
@@ -165,9 +165,6 @@ public class NewBirthdayActivity extends AppCompatActivity {
                             nextButton1.setVisibility(View.GONE);
                         }
                     });
-
-            //Resize dialog
-            final LinearLayout newBirthdayLayout = (LinearLayout) findViewById(R.id.newBirthdayLayout);
 
             /* ResizeAnimation rs = new ResizeAnimation(newBirthdayLayout, 700, true);
 
@@ -249,9 +246,6 @@ public class NewBirthdayActivity extends AppCompatActivity {
                         }
                     });
 
-            //Resize dialog
-            final LinearLayout newBirthdayLayout = (LinearLayout) findViewById(R.id.newBirthdayLayout);
-
             /* ResizeAnimation rs = new ResizeAnimation(newBirthdayLayout, 1100, true);
 
             newBirthdayLayout.startAnimation(rs); */
@@ -300,7 +294,7 @@ public class NewBirthdayActivity extends AppCompatActivity {
                                 }
                             });
 
-                    nextButton1.setText("Save");
+                    nextButton1.setText(R.string.save);
                     next = 2;
                 }
             }, 500);

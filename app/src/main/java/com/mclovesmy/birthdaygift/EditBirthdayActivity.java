@@ -18,6 +18,8 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.mclovesmy.birthdaygift.Databases.DBManagerBirthdays;
@@ -113,6 +115,7 @@ public class EditBirthdayActivity extends AppCompatActivity{
                     // arg2 = month
                     // arg3 = day
 
+                    //TODO use months instead of number
                     String[] MONTHS = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
                     birthdate.setText(arg3 + "/" + (arg2 + 1) + "/" + arg1);
@@ -148,7 +151,7 @@ public class EditBirthdayActivity extends AppCompatActivity{
         @Override
         public void onBitmapLoaded(Bitmap bitmap2, LoadedFrom from) {
 
-            final ImageView imageView = (ImageView) birthdayPicture;
+            final ImageView imageView = birthdayPicture;
 
             imageView.setImageBitmap(bitmap2);
 
@@ -194,7 +197,9 @@ public class EditBirthdayActivity extends AppCompatActivity{
             e.printStackTrace();
         } finally {
             try {
-                fos.close();
+                if (fos != null) {
+                    fos.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -202,32 +207,42 @@ public class EditBirthdayActivity extends AppCompatActivity{
         return directory.getAbsolutePath();
     }
 
-    public static Bitmap cropToSquare(Bitmap bitmap){
-        int width  = bitmap.getWidth();
-        int height = bitmap.getHeight();
-        int newWidth = (height > width) ? width : height;
-        int newHeight = (height > width)? height - ( height - width) : height;
-        int cropW = (width - height) / 2;
-        cropW = (cropW < 0)? 0: cropW;
-        int cropH = (height - width) / 2;
-        cropH = (cropH < 0)? 0: cropH;
-
-        return Bitmap.createBitmap(bitmap, cropW, cropH, newWidth, newHeight);
-    }
-
     public void saveEdit(View view) {
 
+        String gender = "";
 
         if (bitmap != null) {
 
+            RadioGroup genderGroup = (RadioGroup) findViewById(R.id.genderGroup);
+
+            RadioButton male = (RadioButton) findViewById(R.id.male);
+            RadioButton female = (RadioButton) findViewById(R.id.female);
+
+            if (genderGroup.getCheckedRadioButtonId() == male.getId()) {
+                gender = "Male";
+            } else if (genderGroup.getCheckedRadioButtonId() == female.getId()) {
+                gender = "Female";
+            }
+
             saveToInternalStorage(bitmap);
 
-            DBManagerBirthdays.update4(Long.parseLong(intent.getStringExtra("id")), name.getText().toString().trim(), birthdate.getText().toString(), image, "");
+            DBManagerBirthdays.update4(Long.parseLong(intent.getStringExtra("id")), name.getText().toString().trim(), birthdate.getText().toString(), image, gender);
             Picasso.with(getApplicationContext()).invalidate(new File(new ContextWrapper(getApplicationContext()).getDir("imageDir", Context.MODE_PRIVATE), "birthdayPics" + image + ".jpg"));
             finish();
 
         } else {
-            DBManagerBirthdays.update5(Long.parseLong(intent.getStringExtra("id")), name.getText().toString().trim(), birthdate.getText().toString(), "");
+            RadioGroup genderGroup = (RadioGroup) findViewById(R.id.genderGroup);
+
+            RadioButton male = (RadioButton) findViewById(R.id.male);
+            RadioButton female = (RadioButton) findViewById(R.id.female);
+
+            if (genderGroup.getCheckedRadioButtonId() == male.getId()) {
+                gender = "Male";
+            } else if (genderGroup.getCheckedRadioButtonId() == female.getId()) {
+                gender = "Female";
+            }
+
+            DBManagerBirthdays.update5(Long.parseLong(intent.getStringExtra("id")), name.getText().toString().trim(), birthdate.getText().toString(), gender);
             finish();
         }
 
