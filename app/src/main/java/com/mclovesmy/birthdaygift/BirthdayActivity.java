@@ -73,8 +73,6 @@ public class BirthdayActivity extends AppCompatActivity{
     Intent intent;
     String id;
 
-    String[] gifts;
-
     Dialog dialog;
 
     int dialogVersion;
@@ -194,8 +192,6 @@ public class BirthdayActivity extends AppCompatActivity{
         Calendar calendar = Calendar.getInstance();
 
         int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         int getIndex2 = cursor.getColumnIndex("date");
         String date = cursor.getString(getIndex2);
@@ -233,13 +229,18 @@ public class BirthdayActivity extends AppCompatActivity{
         int years = y.getYears();
 
         TextView textView2 = (TextView) findViewById(R.id.textView2);
-        textView2.setText("in " + days + " days");
+        textView2.setText(getApplicationContext().getString(R.string.in_days, String.valueOf(days)));
 
         TextView textView3 = (TextView) findViewById(R.id.textView3);
-        textView3.setText("Turns " + (years + 1));
+        textView3.setText(getApplicationContext().getString(R.string.turns, String.valueOf(years + 1)));
 
         TextView genderText = (TextView) findViewById(R.id.genderText);
-        genderText.setText(cursor.getString(cursor.getColumnIndex("gender")) + "");
+
+        if (cursor.getString(cursor.getColumnIndex("gender")).equals("Male")) {
+            genderText.setText(R.string.male);
+        } else if (cursor.getString(cursor.getColumnIndex("gender")).equals("Female")) {
+            genderText.setText(R.string.female);
+        }
 
     }
 
@@ -327,7 +328,7 @@ public class BirthdayActivity extends AppCompatActivity{
         protected String doInBackground(String... params) {
             try {
                 Scanner s = new Scanner(new File(BirthdayActivity.this.getFilesDir() + "/gifts.txt"));
-                list = new ArrayList<String>();
+                list = new ArrayList<>();
                 while (s.hasNext()) {
                     list.add(s.nextLine());
                 }
@@ -351,7 +352,7 @@ public class BirthdayActivity extends AppCompatActivity{
         protected void onProgressUpdate(Void... values) {}
     }
 
-    public void addPresentIdea (final View view) {
+    public void addPresentIdea (View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(BirthdayActivity.this);
         // Get the layout inflater
 
@@ -361,7 +362,7 @@ public class BirthdayActivity extends AppCompatActivity{
         final View editTextInflater = factory.inflate(R.layout.dialog_present, null);
 
         TextView textView = (TextView) editTextInflater.findViewById(R.id.textView);
-        textView.setText("New present idea");
+        textView.setText(R.string.new_gift_idea);
 
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
@@ -371,7 +372,7 @@ public class BirthdayActivity extends AppCompatActivity{
 
         dialog.show();
 
-        ArrayAdapter adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, list);
+        ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
 
         AutoCompleteTextView editText2 = (AutoCompleteTextView) dialog.findViewById(R.id.presentEditText);
 
@@ -381,7 +382,7 @@ public class BirthdayActivity extends AppCompatActivity{
         dialogVersion = 1;
     }
 
-    public void addPresentGiven (final View view) {
+    public void addPresentGiven (View view) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(BirthdayActivity.this);
         // Get the layout inflater
@@ -390,7 +391,7 @@ public class BirthdayActivity extends AppCompatActivity{
         final View editTextInflater = factory.inflate(R.layout.dialog_present, null);
 
         TextView textView = (TextView) editTextInflater.findViewById(R.id.textView);
-        textView.setText("New given present");
+        textView.setText(R.string.new_given_gift);
 
         EditText editText = (EditText) editTextInflater.findViewById(R.id.presentEditText);
 
@@ -445,7 +446,7 @@ public class BirthdayActivity extends AppCompatActivity{
                 dialog.dismiss();
                 onResume();
             } else {
-                editText.setError("Please fill in a present idea");
+                editText.setError(getText(R.string.gift_idea_error));
             }
         } else if (dialogVersion == 2) {
             int getNameIndex = cursor.getColumnIndex("presents_given");
@@ -470,24 +471,13 @@ public class BirthdayActivity extends AppCompatActivity{
                 dialog.dismiss();
                 onResume();
             } else {
-                editText.setError("Please fill in a given present");
+                editText.setError(getText(R.string.given_gift_error));
             }
         }
 
     }
 
     public static String strSeparator = ",";
-    public static String convertArrayToString(String[] array){
-        String str = "";
-        for (int i = 0;i<array.length; i++) {
-            str = str+array[i];
-            // Do not append comma at the end of last element
-            if(i<array.length-1){
-                str = str+strSeparator;
-            }
-        }
-        return str;
-    }
 
     public static String[] convertStringToArray(String str){
         return str.split(strSeparator);
@@ -554,8 +544,7 @@ public class BirthdayActivity extends AppCompatActivity{
 
                     String gender = cursor.getString(cursor.getColumnIndex("gender")) + "";
 
-                    int i = 0;
-                    for (i = r.nextInt(jsonArray.length() - 10); i < jsonArray.length(); i++) {
+                    for (int i = r.nextInt(jsonArray.length() - 10); i < jsonArray.length(); i++) {
 
                         random = Math.random();
 

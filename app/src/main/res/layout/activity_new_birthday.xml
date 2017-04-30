@@ -2,19 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               xmlns:card_view="http://schemas.android.com/tools"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
               android:id="@+id/newBirthdayLayout"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
               android:animateLayoutChanges="true"
-              android:layout_height="wrap_content">
+              android:orientation="vertical">
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_view"
-        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card_view:cardCornerRadius="0dp"
-        android:layout_marginBottom="10dp">
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        card_view:cardCornerRadius="0dp">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -24,26 +24,26 @@
             android:padding="16dp">
 
             <TextView
-                android:text="New birthday"
+                android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView"
-                android:gravity="center_horizontal"
-                android:textSize="22sp"
                 android:layout_marginLeft="10sp"
                 android:layout_marginRight="10sp"
-                android:textColor="@color/cardview_light_background"/>
+                android:gravity="center_horizontal"
+                android:text="New birthday"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="22sp"/>
 
         </FrameLayout>
 
     </android.support.v7.widget.CardView>
 
     <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/newBirthdayLayou2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/newBirthdayLayou2"
-        android:animateLayoutChanges="true">
+        android:animateLayoutChanges="true"
+        android:orientation="vertical">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -55,88 +55,88 @@
                 android:orientation="vertical">
 
                 <EditText
+                    android:id="@+id/birthdayPerson"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:ems="10"
-                    android:id="@+id/birthdayPerson"
-                    android:gravity="center_horizontal"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="20dp"
-                    android:hint="@string/birthday_hint"/>
+                    android:ems="10"
+                    android:gravity="center_horizontal"
+                    android:hint="@string/birthday_hint"
+                    android:inputType="textPersonName"/>
 
                 <RadioGroup
+                    android:id="@+id/genderGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_gravity="center_horizontal"
-                    android:id="@+id/genderGroup">
+                    android:orientation="horizontal">
 
                     <RadioButton
+                        android:id="@+id/male"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:checked="true"
-                        android:text="Male"
-                        android:id="@+id/male"/>
+                        android:text="Male"/>
 
                     <RadioButton
+                        android:id="@+id/female"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Female"
                         android:layout_marginLeft="10dp"
-                        android:id="@+id/female"/>
+                        android:text="Female"/>
                 </RadioGroup>
 
                 <Button
-                    android:text="@string/birthday_date"
+                    android:id="@+id/setDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/setDate"
-                    android:onClick="setDate"
                     android:layout_marginLeft="50dp"
                     android:layout_marginRight="50dp"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_marginTop="80dp"
+                    android:onClick="setDate"
+                    android:text="@string/birthday_date"/>
 
                 <TextView
-                    android:text=""
+                    android:id="@+id/date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/date"
                     android:gravity="center_horizontal"
+                    android:text=""
                     android:textSize="16sp"/>
 
                 <Button
-                    android:text="@string/add_image"
+                    android:id="@+id/addImageBirthday"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/addImageBirthday"
-                    android:onClick="addImage"
                     android:layout_marginLeft="50dp"
                     android:layout_marginRight="50dp"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_marginTop="80dp"
+                    android:onClick="addImage"
+                    android:text="@string/add_image"/>
 
                 <ImageView
-                    android:contentDescription="hoi"
-                    app:srcCompat="@color/cardview_light_background"
                     android:id="@+id/birthdayImageView"
-                    android:layout_marginTop="10dp"
-                    android:layout_gravity="center_horizontal"
                     android:layout_width="125dp"
-                    android:layout_height="125dp"/>
+                    android:layout_height="125dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:contentDescription="hoi"
+                    app:srcCompat="@color/cardview_light_background"/>
 
                 <Button
-                    android:text="Next"
+                    android:id="@+id/nextButton1"
+                    style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/nextButton1"
-                    android:layout_marginTop="20dp"
                     android:layout_marginLeft="40dp"
                     android:layout_marginRight="40dp"
+                    android:layout_marginTop="20dp"
                     android:onClick="next"
-                    android:textColor="@android:color/background_light"
-                    style="@style/Widget.AppCompat.Button.Colored"/>
+                    android:text="Next"
+                    android:textColor="@android:color/background_light"/>
 
             </LinearLayout>
         </ScrollView>

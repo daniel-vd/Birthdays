@@ -13,6 +13,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.mclovesmy.birthdaygift.BuildConfig;
 import com.mclovesmy.birthdaygift.R;
 
 import java.io.File;
@@ -40,7 +41,7 @@ public class NewGiftActivity extends AppCompatActivity {
         String gift = editNewGift.getText().toString().trim();
 
         if (gift.equals("")) {
-            editNewGift.setError("Please fill in a gift");
+            editNewGift.setError(getText(R.string.new_gift_error));
         } else {
             ArrayList<String> list = null;
             try {
@@ -60,24 +61,24 @@ public class NewGiftActivity extends AppCompatActivity {
             gift = gift.substring(0, 1).toUpperCase() + gift.substring(1);
 
             if (list != null && list.contains(gift)) {
-                Toast.makeText(NewGiftActivity.this, "This gift already exists in the database", Toast.LENGTH_LONG).show();
+                Toast.makeText(NewGiftActivity.this, R.string.new_gift_exists, Toast.LENGTH_LONG).show();
                 return;
             }
 
             final String finalGift = gift;
 
             //Upload the gift to the file
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://danielvd.tk/projects/apps/birthdays/newGift.php",
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, BuildConfig.NewGift,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            Toast.makeText(NewGiftActivity.this, "Your gift has been added!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(NewGiftActivity.this, R.string.gift_added, Toast.LENGTH_LONG).show();
                         }
                     },
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(NewGiftActivity.this, "No internet connection!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(NewGiftActivity.this, R.string.no_internet, Toast.LENGTH_SHORT).show();
                         }
                     }) {
                 @Override
