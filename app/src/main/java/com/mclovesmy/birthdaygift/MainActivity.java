@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setAlarm();
 
-        new LongOperation().execute();
+        new downloadGiftList().execute();
 
         //Initialize floating action button
         fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private class LongOperation extends AsyncTask<String, Void, String> {
+    private class downloadGiftList extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... params) {
@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //The url
             URL url = null;
             try {
-                url = new URL("http://danielvd.tk/projects/apps/birthdays/gift-list.txt");
+                url = new URL(BuildConfig.GiftList);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }

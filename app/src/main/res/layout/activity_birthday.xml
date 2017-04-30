@@ -41,7 +41,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:paddingTop="30dp"
+                    android:paddingTop="35dp"
                     android:text="TextView"
                     android:textColor="#fff"
                     android:textSize="20sp"
@@ -95,7 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
-            android:text="Present ideas"
+            android:text="@string/gift_ideas"
             android:textSize="18sp"/>
 
         <LinearLayout
@@ -144,7 +144,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
-            android:text="Presents given"
+            android:text="@string/gifts_given"
             android:textSize="18sp"/>
 
         <LinearLayout

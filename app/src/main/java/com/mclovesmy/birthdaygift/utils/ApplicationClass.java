@@ -3,6 +3,7 @@ package com.mclovesmy.birthdaygift.utils;
 import android.app.Application;
 
 import com.flurry.android.FlurryAgent;
+import com.mclovesmy.birthdaygift.BuildConfig;
 
 public class ApplicationClass extends Application {
 
@@ -13,7 +14,7 @@ public class ApplicationClass extends Application {
         new FlurryAgent.Builder()
                 .withLogEnabled(true)
                 .withListener(null)
-                .build(this, "VNM7XBXBPPRDGWHNKJTF");
+                .build(this, BuildConfig.FlurryKey + "");
     }
 
 }

@@ -546,7 +546,7 @@ public class BirthdayActivity extends AppCompatActivity{
         // Create request queue
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        String[] product_feeds = {"http://danielvd.tk/projects/apps/birthdays/gift-feeds/AliExpress-best-selling-1_8.php", "http://danielvd.tk/projects/apps/birthdays/gift-feeds/Aliexpress-popular-feed-1.php"};
+        String[] product_feeds = {"" + BuildConfig.Feed1, "" + BuildConfig.Feed2};
         //  Create json array request
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest((product_feeds[new Random().nextInt(product_feeds.length)]), new Response.Listener<JSONArray>() {
             public void onResponse(final JSONArray jsonArray) {
