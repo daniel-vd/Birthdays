@@ -4,6 +4,18 @@
 
     <!-- General -->
     <string name="save">Save</string>
+    <string name="in_days">in %1$s days</string>
+    <string name="turns">Turns %1$s</string>
+
+    <!-- activity_main -->
+    <string name="today">Today</string>
+
+    <!-- activity_birthday -->
+    <string name="gift_ideas">Gift ideas</string>
+    <string name="gifts_given">Gifts given</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="new_gift">New gift idea</string>
 
     <!-- activity_new_birthday -->
     <string name="birthday_hint">Who\'s birthday?</string>

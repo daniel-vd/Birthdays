@@ -59,10 +59,6 @@ import java.util.Scanner;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener, SpringListener {
 
-    private static double TENSION = 800;
-    private static double DAMPER = 20;
-
-    private SpringSystem springSystem;
     private Spring spring;
 
     FloatingActionButton fab;
@@ -71,9 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private DBManagerBirthdays dbManager;
 
-    private SimpleCursorAdapter adapter;
-
-        final String[] from = new String[] { BirthdayDatabaseHelper._ID,
+    final String[] from = new String[] { BirthdayDatabaseHelper._ID,
                 BirthdayDatabaseHelper.NAME, BirthdayDatabaseHelper.DATE, BirthdayDatabaseHelper.IMAGE,
                 BirthdayDatabaseHelper.NAME, BirthdayDatabaseHelper.NAME};
 
@@ -106,12 +100,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fab.startAnimation(animation);
         fab.setVisibility(View.VISIBLE);
 
-        springSystem = SpringSystem.create();
+        SpringSystem springSystem = SpringSystem.create();
 
         // Add a spring to the system.
         spring = springSystem.createSpring();
         spring.addListener(this);
 
+        double DAMPER = 20;
+        double TENSION = 800;
         SpringConfig config = new SpringConfig(TENSION, DAMPER);
         spring.setSpringConfig(config);
     }
@@ -184,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 e.printStackTrace();
             }
             //Put file contents in arraylist 'list'
-            ArrayList<String> list = new ArrayList<String>();
+            ArrayList<String> list = new ArrayList<>();
             if (s != null) {
                 while (s.hasNext()){
                     list.add(s.nextLine());
@@ -332,7 +328,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final ListView listView = (ListView) findViewById(R.id.BirthdayListview);
         listView.setEmptyView(findViewById(R.id.BirthdayEmpty));
 
-        adapter = new SimpleCursorAdapter(MainActivity.this, R.layout.item_birthday, cursor, from, to, 0);
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(MainActivity.this, R.layout.item_birthday, cursor, from, to, 0);
         adapter.notifyDataSetChanged();
 
         adapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
@@ -357,8 +353,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Calendar calendar = Calendar.getInstance();
 
                     int year = calendar.get(Calendar.YEAR);
-                    int month = calendar.get(Calendar.MONTH);
-                    int day = calendar.get(Calendar.DAY_OF_MONTH);
 
                     int getIndex = cursor.getColumnIndex("date");
                     String date = cursor.getString(getIndex);
@@ -373,17 +367,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if (Integer.parseInt(days) < 0) {
                         startDate = new DateTime((year + 1), Integer.parseInt(date2[1]), Integer.parseInt(date2[0]), 0, 0);
                         days = String.valueOf(Days.daysBetween(endDate, startDate).getDays());
-                        ((TextView) view).setText("In " + days + " days");
+                        ((TextView) view).setText(getApplicationContext().getString(R.string.in_days, days));
                     } else if (Integer.parseInt(days) == 0) {
-                        ((TextView) view).setText("Today!");
+                        ((TextView) view).setText(R.string.today);
                     } else {
-                        ((TextView) view).setText("In " + days + " days");
+                        ((TextView) view).setText(getApplicationContext().getString(R.string.in_days, days));
                     }
 
                     return true;
                 } if (view.getId() == R.id.turnsText) {
                     Calendar calendar = Calendar.getInstance();
-                    int now = calendar.get(Calendar.YEAR);
 
                     int getIndex = cursor.getColumnIndex("date");
                     String date = cursor.getString(getIndex);
@@ -394,8 +387,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     Years y = Years.yearsBetween(startDate, endDate);
                     int years = y.getYears();
+                    String years2 = String.valueOf(years + 1);
 
-                    ((TextView) view).setText("Turns " + (years + 1));
+                    ((TextView) view).setText(getApplicationContext().getString(R.string.turns, years2));
                     return true;
                 }
                 return false;

@@ -73,8 +73,6 @@ public class BirthdayActivity extends AppCompatActivity{
     Intent intent;
     String id;
 
-    String[] gifts;
-
     Dialog dialog;
 
     int dialogVersion;
@@ -100,8 +98,6 @@ public class BirthdayActivity extends AppCompatActivity{
         new getGiftList().execute("");
 
         requestQueue = Volley.newRequestQueue(this);
-
-        gifts = new String[] {"Android ", "java", "IOS", "SQL", "JDBC", "Web services"};
 
         itemSuggestions();
 
@@ -196,8 +192,6 @@ public class BirthdayActivity extends AppCompatActivity{
         Calendar calendar = Calendar.getInstance();
 
         int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         int getIndex2 = cursor.getColumnIndex("date");
         String date = cursor.getString(getIndex2);
@@ -235,13 +229,18 @@ public class BirthdayActivity extends AppCompatActivity{
         int years = y.getYears();
 
         TextView textView2 = (TextView) findViewById(R.id.textView2);
-        textView2.setText("in " + days + " days");
+        textView2.setText(getApplicationContext().getString(R.string.in_days, String.valueOf(days)));
 
         TextView textView3 = (TextView) findViewById(R.id.textView3);
-        textView3.setText("Turns " + (years + 1));
+        textView3.setText(getApplicationContext().getString(R.string.turns, String.valueOf(years + 1)));
 
         TextView genderText = (TextView) findViewById(R.id.genderText);
-        genderText.setText(cursor.getString(cursor.getColumnIndex("gender")) + "");
+
+        if (cursor.getString(cursor.getColumnIndex("gender")).equals("Male")) {
+            genderText.setText(R.string.male);
+        } else if (cursor.getString(cursor.getColumnIndex("gender")).equals("Female")) {
+            genderText.setText(R.string.female);
+        }
 
     }
 
@@ -329,7 +328,7 @@ public class BirthdayActivity extends AppCompatActivity{
         protected String doInBackground(String... params) {
             try {
                 Scanner s = new Scanner(new File(BirthdayActivity.this.getFilesDir() + "/gifts.txt"));
-                list = new ArrayList<String>();
+                list = new ArrayList<>();
                 while (s.hasNext()) {
                     list.add(s.nextLine());
                 }
@@ -353,7 +352,7 @@ public class BirthdayActivity extends AppCompatActivity{
         protected void onProgressUpdate(Void... values) {}
     }
 
-    public void addPresentIdea (final View view) {
+    public void addPresentIdea (View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(BirthdayActivity.this);
         // Get the layout inflater
 
@@ -363,7 +362,7 @@ public class BirthdayActivity extends AppCompatActivity{
         final View editTextInflater = factory.inflate(R.layout.dialog_present, null);
 
         TextView textView = (TextView) editTextInflater.findViewById(R.id.textView);
-        textView.setText("New present idea");
+        textView.setText("New gift idea");
 
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
@@ -383,7 +382,7 @@ public class BirthdayActivity extends AppCompatActivity{
         dialogVersion = 1;
     }
 
-    public void addPresentGiven (final View view) {
+    public void addPresentGiven (View view) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(BirthdayActivity.this);
         // Get the layout inflater
