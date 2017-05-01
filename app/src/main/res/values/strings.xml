@@ -20,6 +20,8 @@
     <string name="new_given_gift">New given gift</string>
     <string name="gift_idea_error">Please fill in a gift idea</string>
     <string name="given_gift_error">Please fill in a given gift</string>
+    <string name="no_gift_ideas_found">No gift ideas found.</string>
+    <string name="no_given_gifts_found">No given gifts found.</string>
 
 
     <!-- activity_new_birthday -->
