@@ -123,7 +123,7 @@ public class BirthdayActivity extends AppCompatActivity{
             present_ideas = convertStringToArray(presents_ideas);
         } else {
             present_ideas = new String[1];
-            present_ideas[0] = "No present ideas found.";
+            present_ideas[0] = (String) getText(R.string.no_gift_ideas_found);
         }
 
         new ChipCloud.Configure()
@@ -258,7 +258,7 @@ public class BirthdayActivity extends AppCompatActivity{
             present_given = convertStringToArray(presents_given);
         } else {
             present_given = new String[1];
-            present_given[0] = "No given presents found.";
+            present_given[0] = (String) getText(R.string.no_given_gifts_found);
         }
 
         new ChipCloud.Configure()
