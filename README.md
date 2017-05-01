@@ -5,6 +5,8 @@ Birthdays is an open-source app for remembering birthdays an finding gifts to gi
 # 1. Contributing
 If you'd like to contribute to Birthdays, fork this repository and make your changes. Pull requests are warmly welcome.
 
+>The source code of Birthdays currently is going through some improvements that have to do with commenting and code organizing. Progress can be seen here: https://github.com/daniel-vd/Birthdays/issues/10.
+
 ## 1.1 Bugs
 A list of bugs can be found on the [issue tracker](https://github.com/daniel-vd/Birthdays/issues). If you will work on a fix please mention this on the issue. If you find a bug please create an issue with [bug] in the title.
 
@@ -18,4 +20,6 @@ If you want to work on a new feature that is not listed in the issues list, plea
 ## 1.3 Translating
 Translating will be coming soon.
 
+# 2. License
+Birthdays is licensed under the GNU General Public License version 3.
 
