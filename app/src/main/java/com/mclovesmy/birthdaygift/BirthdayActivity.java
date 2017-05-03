@@ -33,6 +33,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.adroitandroid.chipcloud.ChipCloud;
+import com.adroitandroid.chipcloud.ChipCloud.Mode;
 import com.adroitandroid.chipcloud.ChipListener;
 import com.adroitandroid.chipcloud.FlowLayout.Gravity;
 import com.android.volley.RequestQueue;
@@ -332,6 +333,7 @@ public class BirthdayActivity extends AppCompatActivity{
                 while (s.hasNext()) {
                     list.add(s.nextLine());
                 }
+                list.remove(0);
                 s.close();
 
             } catch (FileNotFoundException e) {
@@ -379,6 +381,8 @@ public class BirthdayActivity extends AppCompatActivity{
         editText2.setAdapter(adapter);
         editText2.setThreshold(1);
 
+        initializeChipCloud();
+
         dialogVersion = 1;
     }
 
@@ -414,7 +418,61 @@ public class BirthdayActivity extends AppCompatActivity{
         editText2.setAdapter(adapter);
         editText2.setThreshold(1);
 
+        initializeChipCloud();
+
         dialogVersion = 2;
+    }
+
+    public void initializeChipCloud () {
+        //Initialize random gift suggestions into chipcloud
+
+        //Suggestions list to String array and get 3 random
+        ArrayList<String> temp_suggestions = new ArrayList<>();
+
+        for (int i = 0; i < 3; i++) {
+            //get random word
+            temp_suggestions.add(list.get(new Random().nextInt(list.size())));
+        }
+
+        final String[] three_suggestions = temp_suggestions.toArray(new String[temp_suggestions.size()]);
+
+        final ChipCloud chipCloud = (ChipCloud) dialog.findViewById(R.id.gift_suggestions);
+
+        //initialize chipcloud
+        new ChipCloud.Configure()
+                .chipCloud(chipCloud)
+                .selectedColor(Color.parseColor("#e1e1e1"))
+                .selectedFontColor(Color.parseColor("#333333"))
+                .deselectedColor(Color.parseColor("#e1e1e1"))
+                .deselectedFontColor(Color.parseColor("#333333"))
+                .selectTransitionMS(500)
+                .deselectTransitionMS(250)
+                .labels(three_suggestions)
+                .mode(Mode.SINGLE)
+                .allCaps(false)
+                .gravity(Gravity.CENTER)
+                .textSize(getResources().getDimensionPixelSize(R.dimen.default_textsize))
+                .verticalSpacing(getResources().getDimensionPixelSize(R.dimen.vertical_spacing))
+                .minHorizontalSpacing(getResources().getDimensionPixelSize(R.dimen.min_horizontal_spacing))
+                .chipListener(new ChipListener() {
+                    @Override
+                    public void chipSelected(final int index) {
+                        EditText editText = (EditText) dialog.findViewById(R.id.presentEditText);
+
+                        if (editText.getText().toString().trim().equals("")) {
+                            editText.append(three_suggestions[index]);
+                        } else {
+                            editText.append(", " + three_suggestions[index]);
+                        }
+                    }
+                    @Override
+                    public void chipDeselected(int index) {
+
+                    }
+                })
+                .build();
+
+        chipCloud.setVisibility(View.VISIBLE);
     }
 
     public void savePresent (View view) {

@@ -114,13 +114,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void setAlarm(){
         Intent alarmIntent = new Intent(MainActivity.this, AlarmReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, PendingIntent.FLAG_ONE_SHOT);
 
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 7);
-        calendar.set(Calendar.MINUTE, 15);
+        calendar.set(Calendar.HOUR_OF_DAY, 00);
+        calendar.set(Calendar.MINUTE, 01);
 
         Calendar now = Calendar.getInstance();
         now.setTimeInMillis(System.currentTimeMillis());
@@ -128,10 +128,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (calendar.before(now)) {
            calendar.add(Calendar.DAY_OF_MONTH, 1);
 
-            manager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(),
+            manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                     AlarmManager.INTERVAL_DAY, pendingIntent);
         } else {
-            manager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(),
+            manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                     AlarmManager.INTERVAL_DAY, pendingIntent);
         }
     }
