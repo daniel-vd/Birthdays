@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void setAlarm(){
         Intent alarmIntent = new Intent(MainActivity.this, AlarmReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, PendingIntent.FLAG_ONE_SHOT);
+        pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
@@ -129,10 +129,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
            calendar.add(Calendar.DAY_OF_MONTH, 1);
 
             manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                    AlarmManager.INTERVAL_DAY, pendingIntent);
+                    86400000, pendingIntent);
         } else {
             manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                    AlarmManager.INTERVAL_DAY, pendingIntent);
+                    86400000, pendingIntent);
         }
     }
 
