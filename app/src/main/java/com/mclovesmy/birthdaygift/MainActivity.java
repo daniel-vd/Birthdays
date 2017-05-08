@@ -113,12 +113,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void setAlarm(){
-        Intent alarmIntent = new Intent(MainActivity.this, AlarmReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        Intent alarmIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
+
+        boolean alarmUp = (PendingIntent.getBroadcast(getApplicationContext(), 0,
+                alarmIntent,
+                PendingIntent.FLAG_NO_CREATE) != null);
+
+        //TODO i'm pretty sure this should be removed soon, but works fine for now.
+        if (alarmUp) {
+            Toast.makeText(MainActivity.this, "1", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Toast.makeText(MainActivity.this, "2", Toast.LENGTH_SHORT).show();
+
+        pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, 00);
         calendar.set(Calendar.MINUTE, 01);
 
@@ -128,11 +143,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (calendar.before(now)) {
            calendar.add(Calendar.DAY_OF_MONTH, 1);
 
-            manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                    86400000, pendingIntent);
+            manager.setRepeating(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(),
+                    AlarmManager.INTERVAL_DAY, pendingIntent);
         } else {
             manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                    86400000, pendingIntent);
+                    AlarmManager.INTERVAL_DAY, pendingIntent);
         }
     }
 

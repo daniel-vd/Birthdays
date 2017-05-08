@@ -39,12 +39,6 @@
         <receiver android:name=".utils.AlarmReceiver" android:enabled="true">
         </receiver>
 
-        <service
-            android:name=".utils.AlarmService"
-            android:process=":remote"
-            android:exported="true"
-            android:enabled="true" />
-
     </application>
 
 </manifest>
