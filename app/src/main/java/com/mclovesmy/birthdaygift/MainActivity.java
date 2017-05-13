@@ -133,22 +133,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 00);
-        calendar.set(Calendar.MINUTE, 01);
+        calendar.set(Calendar.HOUR_OF_DAY, 9);
+        calendar.set(Calendar.MINUTE, 50);
 
         Calendar now = Calendar.getInstance();
         now.setTimeInMillis(System.currentTimeMillis());
 
-        if (calendar.before(now)) {
+        /*if (calendar.before(now)) {
            calendar.add(Calendar.DAY_OF_MONTH, 1);
 
-            manager.setRepeating(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(),
-                    AlarmManager.INTERVAL_DAY, pendingIntent);
-        } else {
             manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                     AlarmManager.INTERVAL_DAY, pendingIntent);
-        }
+        } else {*/
+            manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                    AlarmManager.INTERVAL_DAY, pendingIntent);
+        //}
     }
 
     private class downloadGiftList extends AsyncTask<String, Void, String> {

@@ -229,11 +229,17 @@ public class BirthdayActivity extends AppCompatActivity{
         Years y = Years.yearsBetween(startDate3, endDate2);
         int years = y.getYears();
 
-        TextView textView2 = (TextView) findViewById(R.id.textView2);
-        textView2.setText(getApplicationContext().getString(R.string.in_days, String.valueOf(days)));
-
+        TextView dateText = (TextView) findViewById(R.id.dateText);
         TextView textView3 = (TextView) findViewById(R.id.textView3);
+
+        String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        String[] parts = date.split("/");
+
+        dateText.setText(parts[0] + "/" + months[Integer.parseInt(parts[1]) - 1] + "/" + parts[2]); //put date into textview
+
+        //Put turn-text and age in textview
         textView3.setText(getApplicationContext().getString(R.string.turns, String.valueOf(years + 1)));
+        textView3.append(" " + getApplicationContext().getString(R.string.in_days, String.valueOf(days)));
 
         TextView genderText = (TextView) findViewById(R.id.genderText);
 
