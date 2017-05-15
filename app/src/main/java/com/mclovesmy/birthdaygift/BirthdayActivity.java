@@ -243,6 +243,10 @@ public class BirthdayActivity extends AppCompatActivity{
 
         TextView genderText = (TextView) findViewById(R.id.genderText);
 
+        if (cursor.getString(cursor.getColumnIndex("gender")) == null) {
+            return;
+        }
+
         if (cursor.getString(cursor.getColumnIndex("gender")).equals("Male")) {
             genderText.setText(R.string.male);
         } else if (cursor.getString(cursor.getColumnIndex("gender")).equals("Female")) {

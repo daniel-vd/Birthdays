@@ -13,90 +13,103 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
-            android:id="@+id/cardview">
 
-            <android.support.design.widget.CoordinatorLayout
-                android:id="@+id/coordinator"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/coordinator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorAccent">
+
+            <com.mclovesmy.birthdaygift.utils.CircleProgressBar
+                android:id="@+id/custom_progressBar"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                app:progress="0"
+                app:progressBarThickness="10dp"/>
+
+            <ImageView
+                android:id="@+id/birthdayPicture"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="-70dp"
+                android:transitionName="picture"
+                app:srcCompat="@drawable/ic_person_white_24dp"/>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorAccent">
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="-150dp"
+                android:orientation="vertical">
 
-                <com.mclovesmy.birthdaygift.utils.CircleProgressBar
-                    android:id="@+id/custom_progressBar"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    app:progress="0"
-                    app:progressBarThickness="10dp"/>
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:text="TextView"
+                        android:textColor="@color/background"
+                        android:textSize="17sp"
+                        app:layout_anchor="@id/custom_progressBar"
+                        app:layout_anchorGravity="top|center_horizontal"/>
 
-                <ImageView
-                    android:id="@+id/birthdayPicture"
-                    android:layout_width="100dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center_horizontal"
-                    android:transitionName="picture"
-                    app:srcCompat="@drawable/ic_person_white_24dp"/>
+                </LinearLayout>
 
-            </android.support.design.widget.CoordinatorLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="vertical">
 
-        </android.support.v7.widget.CardView>
+                    <TextView
+                        android:id="@+id/dateText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:text="date"
+                        android:textColor="@color/background"
+                        android:textSize="15sp"/>
+
+                    <TextView
+                        android:id="@+id/genderText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:text="No gender specified"
+                        android:textColor="@color/background"
+                        android:textSize="15sp"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </android.support.design.widget.CoordinatorLayout>
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:text="TextView"
-                android:textSize="14sp"
-                app:layout_anchor="@id/custom_progressBar"
-                app:layout_anchorGravity="top|center_horizontal"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/genderText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:text="gender"
-                android:textSize="14sp"/>
-
-            <TextView
-                android:id="@+id/dateText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:text="date"
-                android:textSize="14sp"/>
-        </LinearLayout>
 
         <TextView
             android:id="@+id/textView4"
