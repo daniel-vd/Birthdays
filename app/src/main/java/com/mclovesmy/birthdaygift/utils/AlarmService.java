@@ -1,8 +1,8 @@
 package com.mclovesmy.birthdaygift.utils;
 
+import android.app.IntentService;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
@@ -10,7 +10,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 
 import com.mclovesmy.birthdaygift.BirthdayActivity;
@@ -28,26 +27,27 @@ import java.io.FileNotFoundException;
 import java.util.Calendar;
 import java.util.Random;
 
-public class AlarmService extends Service {
+public class AlarmService extends IntentService {
+
+    public AlarmService() {
+        super("AlarmService");
+    }
+
     Random random = new Random();
 
     private static int NOTIFICATION_ID;
     private NotificationManager notificationManager;
     private PendingIntent pendingIntent;
 
-    @Override
-    public IBinder onBind(Intent arg0)
-    {
-        return null;
-    }
 
-    @SuppressWarnings("static-access")
-    @Override
-    public void onStart(Intent intent, int startId)
-    {
-        super.onStart(intent, startId);
 
+    @Override
+    protected void onHandleIntent(Intent intent) {
+        Bundle extras = intent.getExtras();
+        // Do the work that requires your app to keep the CPU running.
         checkBirthdays();
+        // Release the wake lock provided by the WakefulBroadcastReceiver.
+        AlarmReceiver.completeWakefulIntent(intent);
     }
 
     String id;

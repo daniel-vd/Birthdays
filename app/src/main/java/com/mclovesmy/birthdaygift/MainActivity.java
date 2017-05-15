@@ -63,8 +63,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     FloatingActionButton fab;
 
-    PendingIntent pendingIntent;
-
     private DBManagerBirthdays dbManager;
 
     final String[] from = new String[] { BirthdayDatabaseHelper._ID,
@@ -78,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setAlarm();
+        setAlarm(this);
 
         new downloadGiftList().execute();
 
@@ -112,30 +110,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         spring.setSpringConfig(config);
     }
 
-    public void setAlarm(){
+    public static void setAlarm(Context context){
 
-        Intent alarmIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
+        PendingIntent pendingIntent;
 
-        boolean alarmUp = (PendingIntent.getBroadcast(getApplicationContext(), 0,
+        Intent alarmIntent = new Intent(context, AlarmReceiver.class);
+
+        boolean alarmUp = (PendingIntent.getBroadcast(context, 0,
                 alarmIntent,
                 PendingIntent.FLAG_NO_CREATE) != null);
 
         //TODO i'm pretty sure this should be removed soon, but works fine for now.
         if (alarmUp) {
-            Toast.makeText(MainActivity.this, "1", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "1", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        Toast.makeText(MainActivity.this, "2", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "2", Toast.LENGTH_SHORT).show();
 
-        pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 00);
-        calendar.set(Calendar.MINUTE, 01);
+        calendar.set(Calendar.HOUR_OF_DAY, 18);
+        calendar.set(Calendar.MINUTE, 25);
 
         Calendar now = Calendar.getInstance();
         now.setTimeInMillis(System.currentTimeMillis());
@@ -143,9 +143,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (calendar.before(now)) {
            calendar.add(Calendar.DAY_OF_MONTH, 1);
 
-            manager.setRepeating(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(),
+            Toast.makeText(context, "1: Alarm at: " + calendar, Toast.LENGTH_LONG).show();
+
+            manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                     AlarmManager.INTERVAL_DAY, pendingIntent);
         } else {
+            Toast.makeText(context, "2: Alarm at: " + calendar, Toast.LENGTH_LONG).show();
+
             manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                     AlarmManager.INTERVAL_DAY, pendingIntent);
         }
