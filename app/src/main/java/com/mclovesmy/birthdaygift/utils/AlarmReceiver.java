@@ -1,16 +1,16 @@
 package com.mclovesmy.birthdaygift.utils;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.content.WakefulBroadcastReceiver;
 
-public class AlarmReceiver extends WakefulBroadcastReceiver {
+public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        Intent service = new Intent(context, AlarmService.class);
-        startWakefulService(context, service);
+        Intent service1 = new Intent(context, AlarmService.class);
+        context.startService(service1);
         // For our recurring task, we'll just display a message
     }
 }

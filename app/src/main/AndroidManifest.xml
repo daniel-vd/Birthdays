@@ -57,7 +57,10 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".utils.AlarmService" android:enabled="true"/>
+        <service
+            android:name=".utils.AlarmService"
+            android:process=":remote"
+            android:enabled="true" />
 
     </application>
 

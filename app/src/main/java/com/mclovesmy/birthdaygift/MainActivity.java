@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setAlarm(this);
+        setAlarm();
 
         new downloadGiftList().execute();
 
@@ -110,47 +110,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         spring.setSpringConfig(config);
     }
 
-    public static void setAlarm(Context context){
-
+    public void setAlarm(){
         PendingIntent pendingIntent;
 
-        Intent alarmIntent = new Intent(context, AlarmReceiver.class);
+        Intent alarmIntent = new Intent(MainActivity.this, AlarmReceiver.class);
+        pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        boolean alarmUp = (PendingIntent.getBroadcast(context, 0,
-                alarmIntent,
-                PendingIntent.FLAG_NO_CREATE) != null);
-
-        //TODO i'm pretty sure this should be removed soon, but works fine for now.
-        if (alarmUp) {
-            Toast.makeText(context, "1", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        Toast.makeText(context, "2", Toast.LENGTH_SHORT).show();
-
-        pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 18);
-        calendar.set(Calendar.MINUTE, 25);
+        calendar.set(Calendar.HOUR_OF_DAY, 1);
+        calendar.set(Calendar.MINUTE, 30);
 
         Calendar now = Calendar.getInstance();
         now.setTimeInMillis(System.currentTimeMillis());
 
         if (calendar.before(now)) {
-           calendar.add(Calendar.DAY_OF_MONTH, 1);
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
 
-            Toast.makeText(context, "1: Alarm at: " + calendar, Toast.LENGTH_LONG).show();
-
-            manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+            manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                     AlarmManager.INTERVAL_DAY, pendingIntent);
         } else {
-            Toast.makeText(context, "2: Alarm at: " + calendar, Toast.LENGTH_LONG).show();
-
-            manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+            manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                     AlarmManager.INTERVAL_DAY, pendingIntent);
         }
     }

@@ -23,16 +23,6 @@ public class ServiceBootReceiver extends Service {
 
         Intent alarmIntent = new Intent(this, AlarmReceiver.class);
 
-        boolean alarmUp = (PendingIntent.getBroadcast(this, 0,
-                alarmIntent,
-                PendingIntent.FLAG_NO_CREATE) != null);
-
-        //TODO i'm pretty sure this should be removed soon, but works fine for now.
-        if (alarmUp) {
-            Toast.makeText(this, "1", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         Toast.makeText(this, "2", Toast.LENGTH_SHORT).show();
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -42,7 +32,7 @@ public class ServiceBootReceiver extends Service {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, 10);
-        calendar.set(Calendar.MINUTE, 10);
+        calendar.set(Calendar.MINUTE, 51);
 
         Calendar now = Calendar.getInstance();
         now.setTimeInMillis(System.currentTimeMillis());
