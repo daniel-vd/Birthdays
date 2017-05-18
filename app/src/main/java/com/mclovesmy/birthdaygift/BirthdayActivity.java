@@ -600,8 +600,29 @@ public class BirthdayActivity extends AppCompatActivity{
 
     private void itemSuggestions() {
 
+        double random3 = Math.random();
+
         // Create request queue
         RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        if (true) {
+            TextView itemText2 = (TextView) findViewById(R.id.itemText2);
+            ImageView itemImage2 = (ImageView) findViewById(R.id.itemImage2);
+            LinearLayout ad_2 = (LinearLayout) findViewById(R.id.ad_2);
+
+            ad_2.setVisibility(View.VISIBLE);
+            Picasso.with(getApplicationContext()).load(R.drawable.birambi_bottle).into(itemImage2);
+
+            return;
+        }
+
+        final TextView nameItem1 = (TextView) findViewById(R.id.itemName1);
+        final TextView namePrice1 = (TextView) findViewById(R.id.itemPrice1);
+        final ImageView imageItem1 = (ImageView) findViewById(R.id.itemImage1);
+        final LinearLayout item1 = (LinearLayout) findViewById(R.id.item1);
+        LinearLayout ad_1 = (LinearLayout) findViewById(R.id.ad_1);
+
+        ad_1.setVisibility(View.VISIBLE);
 
         String[] product_feeds = {"" + BuildConfig.Feed1, "" + BuildConfig.Feed2};
         //  Create json array request
@@ -640,12 +661,6 @@ public class BirthdayActivity extends AppCompatActivity{
                             }
                         }
                     }
-
-
-                    TextView nameItem1 = (TextView) findViewById(R.id.itemName1);
-                    TextView namePrice1 = (TextView) findViewById(R.id.itemPrice1);
-                    ImageView imageItem1 = (ImageView) findViewById(R.id.itemImage1);
-                    LinearLayout item1 = (LinearLayout) findViewById(R.id.item1);
 
                     item1.setOnClickListener(new View.OnClickListener() {
                         @Override
