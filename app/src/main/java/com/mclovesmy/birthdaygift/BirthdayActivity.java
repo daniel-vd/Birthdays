@@ -27,6 +27,7 @@ import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -595,23 +596,43 @@ public class BirthdayActivity extends AppCompatActivity{
     JSONObject jsonObject;
 
     double random;
-
     double random2;
 
     private void itemSuggestions() {
 
         double random3 = Math.random();
 
+        LinearLayout ad_1 = (LinearLayout) findViewById(R.id.ad_1);
+        LinearLayout ad_2 = (LinearLayout) findViewById(R.id.ad_2);
+
         // Create request queue
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        if (true) {
-            TextView itemText2 = (TextView) findViewById(R.id.itemText2);
+        if (random3 < 0.2) {
             ImageView itemImage2 = (ImageView) findViewById(R.id.itemImage2);
-            LinearLayout ad_2 = (LinearLayout) findViewById(R.id.ad_2);
+            Button itemButton2 = (Button) findViewById(R.id.itemButton2);
 
+            ad_1.setVisibility(View.GONE);
             ad_2.setVisibility(View.VISIBLE);
-            Picasso.with(getApplicationContext()).load(R.drawable.birambi_bottle).into(itemImage2);
+            Picasso.with(getApplicationContext()).load(R.mipmap.birambi_bottle).into(itemImage2);
+
+            ad_2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent browserIntent;
+                    browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.BirambiAd));
+                    startActivity(browserIntent);
+                }
+            });
+
+            itemButton2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent browserIntent;
+                    browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.BirambiAd));
+                    startActivity(browserIntent);
+                }
+            });
 
             return;
         }
@@ -620,9 +641,9 @@ public class BirthdayActivity extends AppCompatActivity{
         final TextView namePrice1 = (TextView) findViewById(R.id.itemPrice1);
         final ImageView imageItem1 = (ImageView) findViewById(R.id.itemImage1);
         final LinearLayout item1 = (LinearLayout) findViewById(R.id.item1);
-        LinearLayout ad_1 = (LinearLayout) findViewById(R.id.ad_1);
 
         ad_1.setVisibility(View.VISIBLE);
+        ad_2.setVisibility(View.GONE);
 
         String[] product_feeds = {"" + BuildConfig.Feed1, "" + BuildConfig.Feed2};
         //  Create json array request

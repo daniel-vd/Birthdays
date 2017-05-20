@@ -292,15 +292,19 @@
                     android:id="@+id/itemText2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
                     android:layout_weight="1"
-                    android:text="Birambi.com | Gift in a bottle"/>
+                    android:text="Birambi.com | Gift in a bottle"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
 
                 <Button
                     android:id="@+id/itemButton2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
-                    android:text="Button"
+                    android:text="Buy now"
                     TagsEditText:text="Buy now"/>
 
             </LinearLayout>
@@ -308,7 +312,10 @@
             <ImageView
                 android:id="@+id/itemImage2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:paddingBottom="10dp"
+                android:scaleType="centerCrop"
                 app:srcCompat="@drawable/color_picker_swatch"/>
         </LinearLayout>
 
