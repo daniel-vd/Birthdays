@@ -38,4 +38,8 @@
     <string name="new_gift_error">Please fill in a gift</string>
     <string name="new_gift_exists">This gift already exists in the database</string>
     <string name="gift_added">Your gift has been added!</string>
+
+    <!-- dialog_present -->
+    <string name="new_gift_title">New gift</string>
+    <string name="the_gift">The gift</string>
 </resources>

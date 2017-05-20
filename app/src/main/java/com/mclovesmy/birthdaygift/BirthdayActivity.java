@@ -27,12 +27,14 @@ import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.adroitandroid.chipcloud.ChipCloud;
+import com.adroitandroid.chipcloud.ChipCloud.Mode;
 import com.adroitandroid.chipcloud.ChipListener;
 import com.adroitandroid.chipcloud.FlowLayout.Gravity;
 import com.android.volley.RequestQueue;
@@ -228,13 +230,23 @@ public class BirthdayActivity extends AppCompatActivity{
         Years y = Years.yearsBetween(startDate3, endDate2);
         int years = y.getYears();
 
-        TextView textView2 = (TextView) findViewById(R.id.textView2);
-        textView2.setText(getApplicationContext().getString(R.string.in_days, String.valueOf(days)));
-
+        TextView dateText = (TextView) findViewById(R.id.dateText);
         TextView textView3 = (TextView) findViewById(R.id.textView3);
+
+        String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        String[] parts = date.split("/");
+
+        dateText.setText(parts[0] + "/" + months[Integer.parseInt(parts[1]) - 1] + "/" + parts[2]); //put date into textview
+
+        //Put turn-text and age in textview
         textView3.setText(getApplicationContext().getString(R.string.turns, String.valueOf(years + 1)));
+        textView3.append(" " + getApplicationContext().getString(R.string.in_days, String.valueOf(days)));
 
         TextView genderText = (TextView) findViewById(R.id.genderText);
+
+        if (cursor.getString(cursor.getColumnIndex("gender")) == null) {
+            return;
+        }
 
         if (cursor.getString(cursor.getColumnIndex("gender")).equals("Male")) {
             genderText.setText(R.string.male);
@@ -332,6 +344,7 @@ public class BirthdayActivity extends AppCompatActivity{
                 while (s.hasNext()) {
                     list.add(s.nextLine());
                 }
+                list.remove(0);
                 s.close();
 
             } catch (FileNotFoundException e) {
@@ -379,6 +392,8 @@ public class BirthdayActivity extends AppCompatActivity{
         editText2.setAdapter(adapter);
         editText2.setThreshold(1);
 
+        initializeChipCloud();
+
         dialogVersion = 1;
     }
 
@@ -414,7 +429,61 @@ public class BirthdayActivity extends AppCompatActivity{
         editText2.setAdapter(adapter);
         editText2.setThreshold(1);
 
+        initializeChipCloud();
+
         dialogVersion = 2;
+    }
+
+    public void initializeChipCloud () {
+        //Initialize random gift suggestions into chipcloud
+
+        //Suggestions list to String array and get 3 random
+        ArrayList<String> temp_suggestions = new ArrayList<>();
+
+        for (int i = 0; i < 3; i++) {
+            //get random word
+            temp_suggestions.add(list.get(new Random().nextInt(list.size())));
+        }
+
+        final String[] three_suggestions = temp_suggestions.toArray(new String[temp_suggestions.size()]);
+
+        final ChipCloud chipCloud = (ChipCloud) dialog.findViewById(R.id.gift_suggestions);
+
+        //initialize chipcloud
+        new ChipCloud.Configure()
+                .chipCloud(chipCloud)
+                .selectedColor(Color.parseColor("#e1e1e1"))
+                .selectedFontColor(Color.parseColor("#333333"))
+                .deselectedColor(Color.parseColor("#e1e1e1"))
+                .deselectedFontColor(Color.parseColor("#333333"))
+                .selectTransitionMS(500)
+                .deselectTransitionMS(250)
+                .labels(three_suggestions)
+                .mode(Mode.SINGLE)
+                .allCaps(false)
+                .gravity(Gravity.CENTER)
+                .textSize(getResources().getDimensionPixelSize(R.dimen.default_textsize))
+                .verticalSpacing(getResources().getDimensionPixelSize(R.dimen.vertical_spacing))
+                .minHorizontalSpacing(getResources().getDimensionPixelSize(R.dimen.min_horizontal_spacing))
+                .chipListener(new ChipListener() {
+                    @Override
+                    public void chipSelected(final int index) {
+                        EditText editText = (EditText) dialog.findViewById(R.id.presentEditText);
+
+                        if (editText.getText().toString().trim().equals("")) {
+                            editText.append(three_suggestions[index]);
+                        } else {
+                            editText.append(", " + three_suggestions[index]);
+                        }
+                    }
+                    @Override
+                    public void chipDeselected(int index) {
+
+                    }
+                })
+                .build();
+
+        chipCloud.setVisibility(View.VISIBLE);
     }
 
     public void savePresent (View view) {
@@ -527,13 +596,54 @@ public class BirthdayActivity extends AppCompatActivity{
     JSONObject jsonObject;
 
     double random;
-
     double random2;
 
     private void itemSuggestions() {
 
+        double random3 = Math.random();
+
+        LinearLayout ad_1 = (LinearLayout) findViewById(R.id.ad_1);
+        LinearLayout ad_2 = (LinearLayout) findViewById(R.id.ad_2);
+
         // Create request queue
         RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        if (random3 < 0.2) {
+            ImageView itemImage2 = (ImageView) findViewById(R.id.itemImage2);
+            Button itemButton2 = (Button) findViewById(R.id.itemButton2);
+
+            ad_1.setVisibility(View.GONE);
+            ad_2.setVisibility(View.VISIBLE);
+            Picasso.with(getApplicationContext()).load(R.mipmap.birambi_bottle).into(itemImage2);
+
+            ad_2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent browserIntent;
+                    browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.BirambiAd));
+                    startActivity(browserIntent);
+                }
+            });
+
+            itemButton2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent browserIntent;
+                    browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.BirambiAd));
+                    startActivity(browserIntent);
+                }
+            });
+
+            return;
+        }
+
+        final TextView nameItem1 = (TextView) findViewById(R.id.itemName1);
+        final TextView namePrice1 = (TextView) findViewById(R.id.itemPrice1);
+        final ImageView imageItem1 = (ImageView) findViewById(R.id.itemImage1);
+        final LinearLayout item1 = (LinearLayout) findViewById(R.id.item1);
+
+        ad_1.setVisibility(View.VISIBLE);
+        ad_2.setVisibility(View.GONE);
 
         String[] product_feeds = {"" + BuildConfig.Feed1, "" + BuildConfig.Feed2};
         //  Create json array request
@@ -572,12 +682,6 @@ public class BirthdayActivity extends AppCompatActivity{
                             }
                         }
                     }
-
-
-                    TextView nameItem1 = (TextView) findViewById(R.id.itemName1);
-                    TextView namePrice1 = (TextView) findViewById(R.id.itemPrice1);
-                    ImageView imageItem1 = (ImageView) findViewById(R.id.itemImage1);
-                    LinearLayout item1 = (LinearLayout) findViewById(R.id.item1);
 
                     item1.setOnClickListener(new View.OnClickListener() {
                         @Override
