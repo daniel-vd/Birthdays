@@ -50,6 +50,21 @@ public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        //This notification gets removed at the end of the file.
+        //This 'fake' notification seems to be necessary for the real notifications to work
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(context)
+                        .setSmallIcon(R.drawable.ic_person_black_24dp)
+                        .setContentTitle("Birthdays")
+                        .setContentText("There are birthdays!");
+// Sets an ID for the notification
+        int mNotificationId = 1;
+// Gets an instance of the NotificationManager service
+        NotificationManager mNotifyMgr =
+                (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+// Builds the notification and issues it.
+        mNotifyMgr.notify(mNotificationId, mBuilder.build());
+
         dbManager = new DBManagerBirthdays(context);
         dbManager.open();
         Cursor cursor = dbManager.fetch3();
@@ -145,5 +160,6 @@ public class AlarmReceiver extends BroadcastReceiver {
                 cursor.moveToNext();
             }
         }
+        mNotifyMgr.cancel(mNotificationId);
     }
 }
