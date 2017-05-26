@@ -2,6 +2,7 @@
 
 <ScrollView
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
@@ -13,76 +14,98 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
-            android:id="@+id/cardview">
 
-            <android.support.design.widget.CoordinatorLayout
-                android:id="@+id/coordinator"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/coordinator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorAccent">
+
+            <com.mclovesmy.birthdaygift.utils.CircleProgressBar
+                android:id="@+id/custom_progressBar"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                app:progress="0"
+                app:progressBarThickness="10dp"/>
+
+            <ImageView
+                android:id="@+id/birthdayPicture"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="-70dp"
+                android:transitionName="picture"
+                app:srcCompat="@drawable/ic_person_white_24dp"/>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorAccent">
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="-150dp"
+                android:orientation="vertical">
 
-                <com.mclovesmy.birthdaygift.utils.CircleProgressBar
-                    android:id="@+id/custom_progressBar"
-                    android:layout_width="250dp"
-                    android:layout_height="250dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="30dp"
-                    android:layout_marginTop="20dp"
-                    app:progress="0"
-                    app:progressBarThickness="10dp"/>
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:text="TextView"
+                        android:textColor="@color/background"
+                        android:textSize="17sp"
+                        app:layout_anchor="@id/custom_progressBar"
+                        app:layout_anchorGravity="top|center_horizontal"/>
 
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:paddingTop="35dp"
-                    android:text="TextView"
-                    android:textColor="#fff"
-                    android:textSize="20sp"
-                    app:layout_anchor="@id/custom_progressBar"
-                    app:layout_anchorGravity="top|center_horizontal"/>
+                </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/birthdayPicture"
-                    android:layout_width="125dp"
-                    android:layout_height="125dp"
-                    android:layout_gravity="center_horizontal"
-                    android:transitionName="picture"
-                    app:srcCompat="@drawable/ic_person_white_24dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:paddingBottom="50dp"
-                    android:text="Test"
-                    android:textColor="#fff"
-                    android:textSize="20sp"
-                    app:layout_anchor="@id/custom_progressBar"
-                    app:layout_anchorGravity="bottom|center_horizontal"/>
+                    <TextView
+                        android:id="@+id/dateText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:text="date"
+                        android:textColor="@color/background"
+                        android:textSize="15sp"/>
 
-                <TextView
-                    android:id="@+id/genderText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_marginBottom="-25dp"
-                    android:gravity="center_horizontal"
-                    android:paddingBottom="25dp"
-                    android:text="Test"
-                    android:textColor="#fff"
-                    android:textSize="20sp"/>
+                    <TextView
+                        android:id="@+id/genderText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:text="No gender specified"
+                        android:textColor="@color/background"
+                        android:textSize="15sp"/>
 
-            </android.support.design.widget.CoordinatorLayout>
+                </LinearLayout>
+            </LinearLayout>
 
-        </android.support.v7.widget.CardView>
+        </android.support.design.widget.CoordinatorLayout>
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:orientation="vertical"
@@ -198,12 +221,14 @@
             android:textSize="18sp"/>
 
         <LinearLayout
+            android:id="@+id/ad_1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
             android:layout_marginTop="10dp"
+            android:orientation="horizontal"
             android:padding="7dp"
-            android:paddingBottom="15dp">
+            android:paddingBottom="15dp"
+            android:visibility="gone">
 
             <LinearLayout
                 android:id="@+id/item1"
@@ -249,6 +274,49 @@
             </LinearLayout>
 
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ad_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/itemText2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:text="Birambi.com | Gift in a bottle"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <Button
+                    android:id="@+id/itemButton2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:text="Buy now"
+                    TagsEditText:text="Buy now"/>
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/itemImage2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:paddingBottom="10dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/color_picker_swatch"/>
         </LinearLayout>
 
     </LinearLayout>

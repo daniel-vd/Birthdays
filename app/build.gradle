@@ -18,6 +18,7 @@ android {
             it.buildConfigField 'String', 'Feed1', Feed1
             it.buildConfigField 'String', 'Feed2', Feed2
             it.buildConfigField 'String', 'NewGift', NewGift
+            it.buildConfigField 'String', 'BirambiAd', BirambiAd
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -27,6 +28,7 @@ android {
             it.buildConfigField 'String', 'Feed1', Feed1
             it.buildConfigField 'String', 'Feed2', Feed2
             it.buildConfigField 'String', 'NewGift', NewGift
+            it.buildConfigField 'String', 'BirambiAd', BirambiAd
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

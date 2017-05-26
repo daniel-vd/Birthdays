@@ -1,5 +1,5 @@
 # Birthdays
-Birthdays is an open-source app for remembering birthdays an finding gifts to give. Birthdays is currently in beta meaning many features will come and some may go. [Website](http://danielvd.tk/birthdays/) & [Play Store](https://play.google.com/store/apps/details?id=com.mclovesmy.birthdaygift).
+Birthdays is an open-source app for remembering birthdays an finding gifts to give. Birthdays is currently in alpha meaning many features will come and some may go. [Website](http://danielvd.tk/birthdays/) & [Play Store](https://play.google.com/store/apps/details?id=com.mclovesmy.birthdaygift).
 
 <img src="http://danielvd.tk/birthdays/images/mockup1.png" width="150"> <img src="http://danielvd.tk/birthdays/images/mockup2.png" width="150">
 # 1. Contributing
@@ -22,4 +22,3 @@ Translating will be coming soon.
 
 # 2. License
 Birthdays is licensed under the GNU General Public License version 3.
-
