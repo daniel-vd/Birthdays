@@ -11,6 +11,7 @@ import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceActivity;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SimpleCursorAdapter;
@@ -35,7 +36,10 @@ import com.facebook.rebound.SpringListener;
 import com.facebook.rebound.SpringSystem;
 import com.mclovesmy.birthdaygift.Databases.BirthdayDatabaseHelper;
 import com.mclovesmy.birthdaygift.Databases.DBManagerBirthdays;
+import com.mclovesmy.birthdaygift.helpActivities.ExportActivity;
 import com.mclovesmy.birthdaygift.helpActivities.NewGiftActivity;
+import com.mclovesmy.birthdaygift.helpActivities.SettingsActivity;
+import com.mclovesmy.birthdaygift.helpActivities.SettingsActivity.GeneralPreferenceFragment;
 import com.mclovesmy.birthdaygift.utils.AlarmReceiver;
 import com.mclovesmy.birthdaygift.utils.CheckInternet;
 import com.mclovesmy.birthdaygift.utils.CircleTransform;
@@ -77,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         setAlarm();
+
 
         new downloadGiftList().execute();
 
@@ -437,14 +442,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Toast.makeText(MainActivity.this, "Not working yet. This app is still in alpha", Toast.LENGTH_LONG).show();
-            return true;
+            Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+            //Skip the header fragment
+            intent.putExtra( PreferenceActivity.EXTRA_SHOW_FRAGMENT, GeneralPreferenceFragment.class.getName() );
+            intent.putExtra( PreferenceActivity.EXTRA_NO_HEADERS, true );
+
+            startActivity(intent);
         }
         if (id == R.id.remove_all) {
             dbManager.deleteAll();
         }
         if (id == R.id.new_gift) {
             Intent intent = new Intent(getApplicationContext(), NewGiftActivity.class);
+            startActivity(intent);
+        }
+        if (id == R.id.export) {
+            Intent intent = new Intent(getApplicationContext(), ExportActivity.class);
             startActivity(intent);
         }
 

@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class DBManagerBirthdays {
     private BirthdayDatabaseHelper dbHelper;
 
@@ -35,6 +38,19 @@ public class DBManagerBirthdays {
         contentValue.put(BirthdayDatabaseHelper.PRESENTS_GIVEN, presents_given);
         contentValue.put(BirthdayDatabaseHelper.PRESENTS_IDEAS, presents_ideas);
         contentValue.put(BirthdayDatabaseHelper.GENDER, gender);
+        database.insert(BirthdayDatabaseHelper.TABLE_NAME, null, contentValue);
+    }
+
+    //Insert function used for back-up import.
+    public void insert2(JSONObject obj) throws JSONException {
+        ContentValues contentValue = new ContentValues();
+        contentValue.put(BirthdayDatabaseHelper.NAME, obj.getString("name"));
+        contentValue.put(BirthdayDatabaseHelper.DATE, obj.getString("date"));
+        contentValue.put(BirthdayDatabaseHelper.IMAGE, obj.getString("image"));
+        contentValue.put(BirthdayDatabaseHelper.PRESENTS_GIVEN, obj.getString("presents_given"));
+        contentValue.put(BirthdayDatabaseHelper.PRESENTS_IDEAS, obj.getString("presents_ideas"));
+        contentValue.put(BirthdayDatabaseHelper.GENDER, obj.getString("gender"));
+        contentValue.put(BirthdayDatabaseHelper._ID, obj.getString("_id"));
         database.insert(BirthdayDatabaseHelper.TABLE_NAME, null, contentValue);
     }
 

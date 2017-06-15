@@ -42,4 +42,15 @@
     <!-- dialog_present -->
     <string name="new_gift_title">New gift</string>
     <string name="the_gift">The gift</string>
+
+    <!-- activity_export -->
+    <string name="export">Copy the text below and save it somewhere safe.</string>
+    <string name="copy">Copy to clipboard</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="export_pictures">Exporting pictures is not possible right now. You will need to manually add the images after an import. We will add the possibility to back-up pictures as soon as possible.</string>
+
+    <!-- activity_import -->
+    <string name="import_intro">Paste your back-up below and click the button to restore your data.</string>
+    <string name="import_edit_hint">Paste your back-up here.</string>
+    <string name="import_warning">Please note that all your current birthdays and their data will be deleted, for ever!</string>
 </resources>

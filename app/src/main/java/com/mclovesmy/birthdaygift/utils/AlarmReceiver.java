@@ -132,7 +132,6 @@ public class AlarmReceiver extends BroadcastReceiver {
                         builder.setContentText("Turns " + years + " in one week");
                     }
 
-
                     Bitmap bitmap = null;
                     File f = new File(new ContextWrapper(context).getDir("imageDir", Context.MODE_PRIVATE), "birthdayPics" + image + ".jpg");
                     BitmapFactory.Options options = new BitmapFactory.Options();
