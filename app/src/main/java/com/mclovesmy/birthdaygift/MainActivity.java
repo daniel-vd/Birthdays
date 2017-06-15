@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setAlarm();
 
+
         new downloadGiftList().execute();
 
         //Initialize floating action button

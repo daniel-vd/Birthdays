@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.mclovesmy.birthdaygift.R;
 
@@ -33,9 +35,11 @@ public class ExportActivity extends AppCompatActivity {
         exportEditText.setText("" + SQLContents);
     }
 
-    public void copy () {
+    public void copy (View view) {
         ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
         clipboard.setPrimaryClip(ClipData.newPlainText("", String.valueOf(SQLContents)));
+
+        Toast.makeText(ExportActivity.this, "Copied to clipboard", Toast.LENGTH_LONG).show();
     }
 
     private JSONArray getSQLContents() {

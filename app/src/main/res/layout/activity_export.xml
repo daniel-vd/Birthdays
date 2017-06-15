@@ -28,10 +28,16 @@
         android:id="@+id/copy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button"
-        tools:text="@string/copy"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:onClick="copy"/>
+        android:layout_marginTop="10dp"
+        android:onClick="copy"
+        android:text="@string/copy"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/export_pictures"
+        android:padding="10dp"/>
 </LinearLayout>

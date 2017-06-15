@@ -15,6 +15,21 @@
         <item name="android:textColor">@color/textColor</item>
     </style>
 
+    <!-- Base application theme. -->
+    <style name="DarkTheme" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="android:windowContentTransitions" tools:targetApi="lollipop">true</item>
+
+        <item name="android:windowSharedElementEnterTransition" tools:targetApi="lollipop">
+            @transition/transition1</item>
+        <item name="android:windowSharedElementExitTransition" tools:targetApi="lollipop">
+            @transition/transition1</item>
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">@color/textColorDarkMode</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
