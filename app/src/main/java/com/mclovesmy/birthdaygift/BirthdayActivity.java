@@ -3,6 +3,7 @@ package com.mclovesmy.birthdaygift;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -590,8 +591,17 @@ public class BirthdayActivity extends AppCompatActivity{
             return true;
         }
         if (itemId == R.id.delete_birthday) {
-            dbManager.delete(Long.parseLong(id));
-            finish();
+            new AlertDialog.Builder(this)
+                    .setMessage("Are you sure you want to delete this birthday?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes, delete for ever", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int dialog_id) {
+                            dbManager.delete(Long.parseLong(id));
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("No, keep it", null)
+                    .show();
             return true;
         }
 
@@ -719,5 +729,20 @@ public class BirthdayActivity extends AppCompatActivity{
         requestQueue.add(jsonArrayRequest);
     }
 
+    public void RequestWishList(View view) {
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Birthdays");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Hi, could you please send me your wish list? I'll need it soon!");
+        startActivity(Intent.createChooser(sharingIntent, "Request via"));
+    }
+
+    public void Congratulate(View view) {
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Birthdays");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Hip, hip, hurray! It's your birthday, congratulations!");
+        startActivity(Intent.createChooser(sharingIntent, "Congratulate via"));
+    }
 
 }

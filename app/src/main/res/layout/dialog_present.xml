@@ -70,12 +70,12 @@
                     android:inputType="textPersonName"/>
 
                 <TextView
-                    android:text=""
+                    android:id="@+id/textView2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/date"
                     android:gravity="center_horizontal"
-                    android:textSize="16sp"/>
+                    android:padding="20dp"
+                    android:text="@string/gift_suggestion_explanation"/>
 
                 <com.adroitandroid.chipcloud.ChipCloud
                     android:id="@+id/gift_suggestions"

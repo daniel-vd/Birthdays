@@ -22,6 +22,8 @@
     <string name="given_gift_error">Please fill in a given gift</string>
     <string name="no_gift_ideas_found">No gift ideas found.</string>
     <string name="no_given_gifts_found">No given gifts found.</string>
+    <string name="congratulate">Congratulate</string>
+    <string name="request_wish_list">Request wish list</string>
 
 
     <!-- activity_new_birthday -->
@@ -42,6 +44,7 @@
     <!-- dialog_present -->
     <string name="new_gift_title">New gift</string>
     <string name="the_gift">The gift</string>
+    <string name="gift_suggestion_explanation">Click one or more of the gift suggestions below to add them.</string>
 
     <!-- activity_export -->
     <string name="export">Copy the text below and save it somewhere safe.</string>
